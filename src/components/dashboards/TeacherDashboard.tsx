@@ -4,8 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { PieChart, BarChart, LineChart } from "react-native-gifted-charts";
 import { useRoleDashboard } from "@/lib/hooks/useRoleDashboard";
 import { fmtMoney, fmtDate, fmtTime, fmtShortDate, fmtMonth } from "@/lib/format";
-import DashboardHeader from "./DashboardHeader";
-import { DashboardLoading, DashboardError } from "./DashboardStates";
+import DashboardHeader from "../dashboard/DashboardHeader";
+import { DashboardLoading, DashboardError } from "../dashboard/DashboardStates";
 import KpiCard from "../dashboard/KpiCard";
 import ChartCard from "../dashboard/ChartCard";
 

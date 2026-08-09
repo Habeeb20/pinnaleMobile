@@ -14,6 +14,7 @@ import {
 import { Link, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SecureStore from "expo-secure-store";
+import {useAuth} from "@/lib/auth-context"
 
 export default function Login() {
   const router = useRouter();
@@ -22,6 +23,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const {login} = useAuth()
 
   const handleLogin = async () => {
     setError("");
@@ -32,14 +34,15 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const res = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/auth/login`, {
+      const res = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim(), password }),
       });
-  console.log("Status:", res.status);
+
       const data = await res.json();
-console.log("Response body:", JSON.stringify(data, null, 2));
+        await login(data.token, data.user);
+        router.replace("/(tabs)");
       if (!res.ok) {
         setError(data.message || "Couldn't log you in. Check your details and try again.");
         return;

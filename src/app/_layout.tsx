@@ -3,43 +3,45 @@ import "../../global.css";
 import { DarkTheme, DefaultTheme, ThemeProvider, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from 'react-native';
-import { useEffect, useState } from 'react';
-import * as SecureStore from 'expo-secure-store';
+import { useEffect } from 'react';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
+import { AuthProvider, useAuth } from '@/lib/auth-context';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [token, setToken] = useState<string | null | undefined>(undefined);
+function RootNavigator() {
+  const { token } = useAuth();
 
   useEffect(() => {
-    SecureStore.getItemAsync('token')
-      .then((t) => setToken(t))
-      .catch((err) => {
-        console.log('SecureStore error:', err);
-        setToken(null);
-      })
-      .finally(() => {
-        SplashScreen.hideAsync();
-      });
-  }, []);
+    if (token !== undefined) {
+      SplashScreen.hideAsync();
+    }
+  }, [token]);
 
   if (token === undefined) {
     return <AnimatedSplashOverlay />;
   }
 
   return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={!!token}>
+        <Stack.Screen name="(tabs)" />
+      </Stack.Protected>
+      <Stack.Protected guard={!token}>
+        <Stack.Screen name="(auth)" />
+      </Stack.Protected>
+    </Stack>
+  );
+}
+
+export default function RootLayout() {
+  const colorScheme = useColorScheme();
+  return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Protected guard={!!token}>
-          <Stack.Screen name="(tabs)" />
-        </Stack.Protected>
-        <Stack.Protected guard={!token}>
-          <Stack.Screen name="(auth)" />
-        </Stack.Protected>
-      </Stack>
+      <AuthProvider>
+        <RootNavigator />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
