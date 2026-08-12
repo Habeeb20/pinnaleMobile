@@ -4,24 +4,26 @@
     "slug": "pinnacle",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/pinnacle.jpg",
     "scheme": "pinnacle",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.codequor.pinnacle"
     },
     "android": {
+      "package": "com.codequor.pinnacle",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "foregroundImage": "./assets/images/pinnacle.jpg",
+        "backgroundImage": "./assets/images/pinnacle.jpg",
+        "monochromeImage": "./assets/images/pinnacle.jpg"
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/pinnacle.jpg"
     },
     "plugins": [
       "expo-router",
@@ -38,6 +40,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "bfea97bf-1229-466b-b879-3f4f023407e3"
+      }
     }
   }
 }

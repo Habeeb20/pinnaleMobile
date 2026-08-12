@@ -38,7 +38,7 @@ import { Tabs } from "expo-router";
 import { View } from "react-native";
 import { useAuth } from "@/lib/auth-context";
 import { ROLE_TABS } from "@/lib/role-nav-config";
-
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const GOLD = "#D4AF37";
 const NAVY = "#0B1220";
 const NAVY_ELEVATED = "#141F35";
@@ -47,7 +47,7 @@ export default function AppTabs() {
   const { user } = useAuth();
   const tabs = ROLE_TABS[user?.role || "admin"] || ROLE_TABS.admin;
   const activeNames = tabs.map((t) => t.name);
-
+  const insets = useSafeAreaInsets();
   // Every possible screen file must be registered; ones not in this role's
   // set are hidden via href: null so they don't show a tab button.
   const ALL_SCREENS = ["index", "people", "grades", "finance", "library", "schools", "more"];
@@ -62,8 +62,8 @@ export default function AppTabs() {
           backgroundColor: NAVY_ELEVATED,
           borderTopColor: "#22304A",
           borderTopWidth: 1,
-          height: 62,
-          paddingBottom: 8,
+          height: 56 + insets.bottom,
+          paddingBottom: 20,
           paddingTop: 6,
         },
         tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
