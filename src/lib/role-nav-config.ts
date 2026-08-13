@@ -85,8 +85,9 @@ export const ROLE_MORE_ITEMS: Record<string, { label: string; route: string }[]>
     { label: "Report Cards", route: "report-cards" },
     { label: "Timetable", route: "timetable" },
     { label: "Transportation", route: "transport" },
-    { label: "Hostel", route: "hostel-info" },
     { label: "Library", route: "library" },
+    { label: "Group Chat", route: "group-chat" },
+    { label: "Hostel", route: "hostel-info" },
     { label: "Profile", route: "profile" },
   ],
   parent: [
