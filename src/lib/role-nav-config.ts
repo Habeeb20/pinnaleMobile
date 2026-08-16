@@ -82,7 +82,7 @@ export const ROLE_MORE_ITEMS: Record<string, { label: string; route: string }[]>
   student: [
     { label: "Test CBT", route: "test-cbt" },
     { label: "My Classes", route: "my-classes" },
-    { label: "Report Cards", route: "report-cards" },
+    // { label: "Report Cards", route: "report-cards" },
     { label: "Timetable", route: "timetable" },
     { label: "Transportation", route: "transport" },
     { label: "Library", route: "library" },
